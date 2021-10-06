@@ -6,10 +6,12 @@ Version 1.0.0 (2021-08-26)
     - Added column classifiers (Date, Time, PerUnitCost, TotalCost, etc. )
     - Added Column “AveCost” to track average item cost
 
-## Changes 
+## Changes
     - Changed date format to MM-DD-YYYY
     - Removal of whitespace (cosmetic)
 
 ## Fixes
     - Fixed case where exception was thrown when cases didn’t match for category labels
     - Fixed SUM to run over entire column instead of partial
+
+Can I make changes?
