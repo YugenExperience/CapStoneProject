@@ -1,0 +1,29 @@
+# Changelog
+This file contains the notable changes to the project
+
+Version 1.1.0 (2021-10-06)
+## New
+	-Added column "num_of_days" = Col(ended_at)-Col(started_at) & formatted to d to track patterns in longer length of rides
+	-Added column "ride_length" = Col(ended_at)-Col(started_at) & formatted to h:mm:ss to track patterns in length of rides
+	-Added column "day_of_week" = WEEKDAY(cell,1) to track day of week for ride start times
+
+
+## Changes
+	-ride_id:  Identified non-unique and/or reformattable outlier IDs that didn't conform to the usual 16 alphanumeric characters using =LEN(A:A)
+	-rideable_type: filter verified boolean nature of docked or electric bike (note: new "classic bike" type began in 5th month)
+	-started_at:  Changed date format to YYYY-MM-DD h:mm:ss
+	-ended_at:  Changed date format to YYYY-MM-DD h:mm:ss
+	-start_lat:  Changed format to 00.000000 for consistent resolution
+	-start_lng:  Changed format to 00.000000 for consistent resolution
+	-end_lat:  Changed format to 00.000000 for consistent resolution
+	-end_lng:  Changed format to 00.000000 for consistent resolution
+	-member_casual:  filter verified boolean nature of casual or member
+
+## Fixes
+	-deleted non-unique and/or reformattable outlier ride_id that didn't conform to the usual 16 alphanumeric characters
+	-deleted rows that contained testing data in start_station_name or end_station_name rows:
+		-HUBBARD ST BIKE CHECKING (LBS-WH-TEST)
+		-WATSON TESTING - DIVVY
+		-New alphanumeric station_name began in 2020-12
+		-Test sites disappeared in 2021-01 and came back in 2021-05
+	-deleted rows where the end datetime began before the start datetime
