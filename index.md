@@ -22,7 +22,7 @@ Design marketing strategies aimed at converting casual riders into annual member
 * How to use digital media to influence casual riders to become members?
 
 **Not included:**  
-Moreno has assigned me, the junior Data Analyst, to answer only the first   question:    
+Moreno has assigned me, the junior Data Analyst, to answer the first   question:    
 
   *How do annual members and casual riders use Cyclistic bikes differently?  Though the other questions are in scope for our company as a whole, they are out of scope for this analysis.*
 
@@ -59,20 +59,46 @@ Day 5 ( Act ):
 *Estimated date for completion:
 This is my “if all goes well and I have everything I need, this is when I’ll be done” date.
 
-## Deliverable 1 (Clear Statement of Business Task)
+## Deliverable 1:
+#### Clear Statement of Business Task
 
   * How do annual members and casual riders use Cyclistic bikes differently?
 
-## Deliverable 2 (Description of )
+## Deliverable 2:
+#### Description of all Data Sources
 
-## Day 2 (Process): Change Log
-## New
+~~~SQL
+CREATE TABLE rides (
+	id SERIAL,
+	ride_id VARCHAR(50),
+	rideable_type VARCHAR(50),
+	started_at TIMESTAMP,
+	ended_at TIMESTAMP,
+	start_station_name VARCHAR(250),
+	start_station_id VARCHAR(250),
+	end_station VARCHAR(250),
+	end_station_id VARCHAR(250),
+	start_lat REAL,
+	start_lng REAL,
+	end_lat REAL,
+	end_lng REAL,
+	member_casual VARCHAR(50),
+	ride_length_days INT,
+	ride_length_hmmss TIME,
+	day_of_week INT,
+	PRIMARY KEY (id)
+	)
+~~~
+
+## Deliverable 3: Change Log
+
+### New
 	-Added column "num_of_days" = Col(ended_at)-Col(started_at) & formatted to track patterns  in longer length of rides
 	-Added column "ride_length" = Col(ended_at)-Col(started_at) & formatted to h:mm:ss to track patterns in length of rides
 	-Added column "day_of_week" = WEEKDAY(cell,1) to track day of week for ride start times
 
 
-## Changes  
+### Changes  
 	- ride_id:  Identified non-unique and/or reformattable outlier IDs that didn't conform  to the usual 16 alphanumeric characters
 		using =LEN(A:A)
 	- rideable_type: filter verified boolean nature of docked or electric bike (note: new "classic bike" type began in 5th month)
@@ -84,7 +110,7 @@ This is my “if all goes well and I have everything I need, this is when I’ll
 	-end_lng:  Changed format to 00.000000 for consistent resolution
 	-member_casual:  filter verified boolean nature of casual or member
 
-## Fixes
+### Fixes
 	-deleted non-unique and/or reformattable outlier ride_id that didn't conform to the usual 16 alphanumeric characters
 	-deleted rows that contained testing data in start_station_name or end_station_name rows:
 		-HUBBARD ST BIKE CHECKING (LBS-WH-TEST)
