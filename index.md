@@ -1,5 +1,5 @@
 #### Case Study:  How does a Bike-Share navigate Speedy Success?  
-######    
+
 ***Data Analyst:*** Joe Szymczak-Parker  
 ***Client/Sponsor:*** Cyclistic Bike-Share  
 
