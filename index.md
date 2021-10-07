@@ -1,4 +1,4 @@
-#### Case Study:  How does a Bike-Share navigate Speedy Success?  
+## Case Study:  How does a Bike-Share navigate Speedy Success?  
 
 ***Data Analyst:*** Joe Szymczak-Parker  
 ***Client/Sponsor:*** Cyclistic Bike-Share  
@@ -65,27 +65,37 @@ This is my “if all goes well and I have everything I need, this is when I’ll
   * How do annual members and casual riders use Cyclistic bikes differently?
 
 ## Deliverable 2:
-#### Description of all Data Sources
+#### Description of all Data Sources  
 
-~~~SQL
+Original Data provided as excel files separated by month.  The months represent 12 month (1 year) starting on 2020-09-01 and ending on 2021-08-31. My data is located @ https://divvy-tripdata.s3.amazonaws.com/index.html
+I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07
+Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study,
+the datasets are appropriate and will enable you to answer the business questions. The data has been made available by
+Motivate International Inc. under this license (https://www.divvybikes.com/data-license-agreement).
+
+~~~SQLMy data is located @ https://divvy-tripdata.s3.amazonaws.com/index.html
+I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07
+Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study,
+the datasets are appropriate and will enable you to answer the business questions. The data has been made available by
+Motivate International Inc. under this license (https://www.divvybikes.com/data-license-agreement).
 CREATE TABLE rides (
 	id SERIAL,
-	ride_id VARCHAR(50),
-	rideable_type VARCHAR(50),
-	started_at TIMESTAMP,
-	ended_at TIMESTAMP,
-	start_station_name VARCHAR(250),
-	start_station_id VARCHAR(250),
-	end_station VARCHAR(250),
-	end_station_id VARCHAR(250),
-	start_lat REAL,
-	start_lng REAL,
-	end_lat REAL,
-	end_lng REAL,
-	member_casual VARCHAR(50),
-	ride_length_days INT,
-	ride_length_hmmss TIME,
-	day_of_week INT,
+	ride_id VARCHAR(50),               -- Unique Ride ID (approximately 5 million)
+	rideable_type VARCHAR(50),         -- Docked, Classic, & Electric Bike Categories
+	started_at TIMESTAMP,              -- Timestamp @ start of unique ride
+	ended_at TIMESTAMP,                -- Timestamp @ end of unique ride
+	start_station_name VARCHAR(250),   -- String of Start Station Name
+	start_station_id VARCHAR(250),     -- Alphanumeric Station ID
+	end_station VARCHAR(250),          -- String of End Station Name
+	end_station_id VARCHAR(250),       -- Alphanumeric Station ID
+	start_lat REAL,                    -- Floating Point Decimal Start Latitude
+	start_lng REAL,                    -- Floating Point Decimal Start Longitude
+	end_lat REAL,                      -- Floating Point Decimal End Latitude
+	end_lng REAL,                      -- Floating Point Decimal End Longitude
+	member_casual VARCHAR(50),         -- Member or Casual Categories
+	ride_length_days INT,              -- Integer Type:  Length of Ride (Days)
+	ride_length_hmmss TIME,            -- Time Type:  Length of Ride (Hours:Minutes:Seconds)
+	day_of_week INT,                   -- Day of Week 1 = Sunday through 7 = Saturday
 	PRIMARY KEY (id)
 	)
 ~~~
