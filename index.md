@@ -67,17 +67,14 @@ This is my “if all goes well and I have everything I need, this is when I’ll
 ## Deliverable 2:
 #### Description of all Data Sources  
 
-Original Data provided as excel files separated by month.  The months represent 12 month (1 year) starting on 2020-09-01 and ending on 2021-08-31. My data is located @ https://divvy-tripdata.s3.amazonaws.com/index.html
+My data is located @ https://divvy-tripdata.s3.amazonaws.com/index.html
 I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07
 Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study,
 the datasets are appropriate and will enable you to answer the business questions. The data has been made available by
 Motivate International Inc. under this license (https://www.divvybikes.com/data-license-agreement).
 
-~~~SQLMy data is located @ https://divvy-tripdata.s3.amazonaws.com/index.html
-I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07
-Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study,
-the datasets are appropriate and will enable you to answer the business questions. The data has been made available by
-Motivate International Inc. under this license (https://www.divvybikes.com/data-license-agreement).
+
+~~~SQL
 CREATE TABLE rides (
 	id SERIAL,
 	ride_id VARCHAR(50),               -- Unique Ride ID (approximately 5 million)
@@ -128,6 +125,7 @@ CREATE TABLE rides (
 		-New alphanumeric station_name began in 2020-12
 		-Test sites disappeared in 2021-01 and came back in 2021-05
 	-deleted rows where the end datetime began before the start datetime
+
 You can use the [editor on GitHub](https://github.com/YugenExperience/CapStoneProject/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
