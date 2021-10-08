@@ -69,7 +69,7 @@ This is my “if all goes well and I have everything I need, this is when I’ll
 
 For the purposes of this case study, the datasets exhibit a different name because Cyclistic is a fictional company. However, the data itself comes from a real world ride share company and has been made available by Motivate International Inc. under this [License](https://www.divvybikes.com/data-license-agreement/ "Motivate International License").    
 
-The trip data can be found @ [Divvy Tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html/ "Divvy Tripdata"). I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07.  This spans 1 year of data separated into the following data types:
+The trip data can be found @ [Divvy Tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html "Divvy Tripdata"). I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07.  This spans 1 year of data separated into the following data types:
 
 
 ~~~SQL
