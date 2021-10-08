@@ -96,6 +96,7 @@ CREATE TABLE rides (
 ~~~
 
 ## Deliverable 3: Change Log
+#### Documentation of any cleaning or manipulation of data
 
 ### New
 	-Added column "num_of_days" = Col(ended_at)-Col(started_at) & formatted to track patterns  in longer length of rides
@@ -123,6 +124,57 @@ CREATE TABLE rides (
 		-New alphanumeric station_name began in 2020-12
 		-Test sites disappeared in 2021-01 and came back in 2021-05
 	-deleted rows where the end datetime began before the start datetime
+
+## Deliverable 4:
+#### A summary of my analysis
+
+After cleaning the data in Microsoft Excel according to the Change Log presented in the previous deliverable, I created a "*rides*" database in PostGreSQL so that I could analyze patterns in the data.  Each spreadsheet was added to the "*rides*" table with the following code:
+
+~~~ SQL
+COPY rides (
+	ride_id,
+	rideable_type,
+	started_at,
+	ended_at,
+	start_station_name,
+	start_station_id,
+	end_station,
+	end_station_id,
+	start_lat,
+	start_lng,
+	end_lat,
+	end_lng,
+	member_casual,
+	ride_length_days,
+	ride_length_hmmss,
+	day_of_week
+	)
+FROM        --This is a local folder structure.
+	'C:\Users\Public\Documents\postgresql\202008-divvy-tripdata.csv'
+DELIMITER
+	','
+CSV
+	HEADER;
+~~~
+
+After the rides table was created in PostGreSQL, it contained nearly 5 million unique data points!   
+
+Since my business task was to identify use patterns in casual users vs. full members, I determined that the data would allow the following comparisons for analysis:
+
+  1.)
+
+
+## Deliverable 5:
+#### Supporting visualizations and key findings
+
+## Deliverable 6:
+#### My top three recommendations based on my analysis
+
+1.
+2.
+3.
+
+
 
 ### Support or Contact
 
