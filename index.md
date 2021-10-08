@@ -23,11 +23,10 @@ Design marketing strategies aimed at converting casual riders into annual member
 
 **Not included:**    
 
-Moreno has assigned me, the junior Data Analyst, to answer the first solely the first question:    
-
+Moreno has assigned me, the junior Data Analyst, to answer the first solely the first question:
 ##### **How do annual members and casual riders use Cyclistic bikes differently?**    
 
-Though the other questions are in scope for our company as a whole, they are out of scope for this analysis.*
+Though the other questions are in scope for our company as a whole, they are out of scope for this analysis.
 
 **Deliverables:**
 
