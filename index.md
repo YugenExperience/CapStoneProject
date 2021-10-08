@@ -131,7 +131,9 @@ CREATE TABLE rides (
 		-New alphanumeric station_name began in 2020-12
 		-Test sites disappeared in 2021-01 and came back in 2021-05
 	-deleted rows where the end datetime began before the start datetime
----
+
+___
+
 ## Deliverable 4:
 #### A summary of my analysis
 
