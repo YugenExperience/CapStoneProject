@@ -1,7 +1,7 @@
 ## Case Study:  How does a Bike-Share navigate Speedy Success?  
-
-***Data Analyst:*** Joe Szymczak-Parker  
-***Client/Sponsor:*** Cyclistic Bike-Share  
+---
+**Data Analyst:** *Joe Szymczak-Parker*  
+**Client/Sponsor:** *Cyclistic Bike-Share*
 
 **Background:**  
 In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime.  
@@ -21,10 +21,13 @@ Design marketing strategies aimed at converting casual riders into annual member
 * Why would casual riders buy Cyclistic annual memberships?
 * How to use digital media to influence casual riders to become members?
 
-**Not included:**  
-Moreno has assigned me, the junior Data Analyst, to answer the first   question:    
+**Not included:**    
 
-  *How do annual members and casual riders use Cyclistic bikes differently?  Though the other questions are in scope for our company as a whole, they are out of scope for this analysis.*
+Moreno has assigned me, the junior Data Analyst, to answer the first solely the first question:    
+
+  ###### **How do annual members and casual riders use Cyclistic bikes differently?**    
+####  
+Though the other questions are in scope for our company as a whole, they are out of scope for this analysis.*
 
 **Deliverables:**
 
@@ -59,10 +62,14 @@ Day 5 ( Act ):
 *Estimated date for completion:
 This is my “if all goes well and I have everything I need, this is when I’ll be done” date.
 
+___
+
 ## Deliverable 1:
 #### Clear Statement of Business Task
 
   * How do annual members and casual riders use Cyclistic bikes differently?
+
+___
 
 ## Deliverable 2:
 #### Description of all Data Sources  
@@ -94,7 +101,7 @@ CREATE TABLE rides (
 	PRIMARY KEY (id)
 	)
 ~~~
-
+---
 ## Deliverable 3: Change Log
 #### Documentation of any cleaning or manipulation of data
 
@@ -124,7 +131,7 @@ CREATE TABLE rides (
 		-New alphanumeric station_name began in 2020-12
 		-Test sites disappeared in 2021-01 and came back in 2021-05
 	-deleted rows where the end datetime began before the start datetime
-
+---
 ## Deliverable 4:
 #### A summary of my analysis
 
@@ -159,14 +166,28 @@ CSV
 
 After the rides table was created in PostGreSQL, it contained nearly 5 million unique data points!   
 
-Since my business task was to identify use patterns in casual users vs. full members, I determined that the data would allow the following comparisons for analysis:
+Since my business task was to identify use patterns in casual users vs. full members, I determined that the data would allow the following dimensions for analysis:
 
-  1.)
+1.) Time Comparisons
+  * day_of_week
+  * month_to_month
+  * season_to_season  
+
+2.) Membership Comparisons
+  * Casual vs Member
+
+3.) Bike Type Comparisons
+  * Docked
+  * classic
+  * Electric
 
 
+---
 ## Deliverable 5:
 #### Supporting visualizations and key findings
 
+Under Construction!
+---
 ## Deliverable 6:
 #### My top three recommendations based on my analysis
 
@@ -174,7 +195,8 @@ Since my business task was to identify use patterns in casual users vs. full mem
 2.
 3.
 
-
+Under Construction!
+---
 
 ### Support or Contact
 
