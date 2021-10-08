@@ -67,11 +67,9 @@ This is my “if all goes well and I have everything I need, this is when I’ll
 ## Deliverable 2:
 #### Description of all Data Sources  
 
-My data is located @ https://divvy-tripdata.s3.amazonaws.com/index.html
-I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07
-Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study,
-the datasets are appropriate and will enable you to answer the business questions. The data has been made available by
-Motivate International Inc. under this license (https://www.divvybikes.com/data-license-agreement).
+For the purposes of this case study, the datasets exhibit a different name because Cyclistic is a fictional company. However, the data itself comes from a real world ride share company and has been made available by Motivate International Inc. under this [License](https://www.divvybikes.com/data-license-agreement/ "Motivate International License").    
+
+The trip data can be found @ [Divvy Tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html/ "Divvy Tripdata"). I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07.  This spans 1 year of data separated into the following data types:
 
 
 ~~~SQL
@@ -125,38 +123,6 @@ CREATE TABLE rides (
 		-New alphanumeric station_name began in 2020-12
 		-Test sites disappeared in 2021-01 and came back in 2021-05
 	-deleted rows where the end datetime began before the start datetime
-
-You can use the [editor on GitHub](https://github.com/YugenExperience/CapStoneProject/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/YugenExperience/CapStoneProject/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
 ### Support or Contact
 
