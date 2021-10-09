@@ -202,18 +202,14 @@ ___
 ## Deliverable 5:
 #### Supporting visualizations and key findings
 
-Under Construction!
+Revision in Process!  Contact me for the last draft @ jszymc1@gmail.com
 
 ___
 
 ## Deliverable 6:
 #### My top three recommendations based on my analysis
 
-1.
-2.
-3.
-
-Under Construction!
+Revision in Process!  Contact me for the last draft @ jszymc1@gmail.com
 
 ___
 
