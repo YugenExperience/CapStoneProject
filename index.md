@@ -113,7 +113,9 @@ CREATE TABLE rides (
 	PRIMARY KEY (id)
 	)
 ~~~
+
 ---
+
 ## Deliverable 3: Change Log
 #### Documentation of any cleaning or manipulation of data
 
@@ -192,16 +194,18 @@ Since my business task was to identify use patterns in casual users vs. full mem
 
 3.) Bike Type Comparisons
   * Docked
-  * classic
+  * Classic
   * Electric
 
+___
 
----
 ## Deliverable 5:
 #### Supporting visualizations and key findings
 
 Under Construction!
----
+
+___
+
 ## Deliverable 6:
 #### My top three recommendations based on my analysis
 
@@ -210,7 +214,8 @@ Under Construction!
 3.
 
 Under Construction!
----
+
+___
 
 ### Support or Contact
 
