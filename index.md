@@ -91,8 +91,8 @@ For the purposes of this case study, the datasets exhibit a different name becau
 The trip data can be found @ [Divvy Tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html "Divvy Tripdata"). I have downloaded it in the form of 12 excel spreadsheets delineated by month starting on 2020-08 and ending with 2021-07.  This spans 1 year of data separated into the following data types:
 
 
-~~~SQL
-CREATE TABLE rides (
+~~~ SQL
+CREATE TABLE IF NOT EXISTS rides (
 	id SERIAL,
 	ride_id VARCHAR(50),               -- Unique Ride ID (approximately 5 million)
 	rideable_type VARCHAR(50),         -- Docked, Classic, & Electric Bike Categories
@@ -111,7 +111,7 @@ CREATE TABLE rides (
 	ride_length_hmmss TIME,            -- Time Type:  Length of Ride (Hours:Minutes:Seconds)
 	day_of_week INT,                   -- Day of Week 1 = Sunday through 7 = Saturday
 	PRIMARY KEY (id)
-	)
+    );
 ~~~
 
 ---
@@ -151,7 +151,7 @@ ___
 ## Deliverable 4:
 #### A summary of my analysis
 
-After cleaning the data in Microsoft Excel according to the Change Log presented in the previous deliverable, I created a "*rides*" database in PostGreSQL so that I could analyze patterns in the data.  Each spreadsheet was added to the "*rides*" table with the following code:
+After cleaning the data in Microsoft Excel according to the Change Log presented in the previous deliverable, I created a "*rides*" database in PostGreSQL so that I could analyze patterns in the data.  Each spreadsheet (12 total) was added to the "*rides*" table with the following code:
 
 ~~~ SQL
 COPY rides (
@@ -172,9 +172,9 @@ COPY rides (
 	ride_length_hmmss,
 	day_of_week
 	)
-FROM        --This is a local folder structure.
+FROM        --This is a local folder structure
 	'C:\Users\Public\Documents\postgresql\202008-divvy-tripdata.csv'
-DELIMITER
+DELIMITER   --Each file was from a different month
 	','
 CSV
 	HEADER;
@@ -184,21 +184,214 @@ After the rides table was created in PostGreSQL, it contained nearly 5 million u
 
 Since my business task was to identify use patterns in casual users vs. full members, I determined that the data would allow the following dimensions for analysis:
 
-1.) Time Comparisons
-  * day_of_week
-  * month_to_month
-  * season_to_season  
+1.) Membership Comparisons (over the entire year)    
 
-2.) Membership Comparisons
-  * Casual vs Member
+* Casual Riders vs Membership Riders   
+* Bike Types:  Docked vs Classic vs Electric  
 
-3.) Bike Type Comparisons
-  * Docked
-  * Classic
-  * Electric
+      * AVG(), MIN(), MAX(), MODE(), Median
+
+2.) Time Comparisons
+  * What are month to month patterns in use between the user types?
+  * What days of the week do each user type ride bikes?
+  * How do each user types use the bikes seasonally?
 
 ___
 
+Query for Question #1 (Membership Comparisons:  Casual vs Member)
+~~~ SQL
+-- Average, Max, Mode, & Median ride time casual vs member
+-- Note: DATE_TRUNC is how you round intervals in PostGreSQL
+-- Note: No Median function in PostGreSQL so provided replacement below
+
+SELECT
+    member_casual,
+    DATE_TRUNC('second', AVG(ended_at - started_at)) AS avg_ride_length,                        -- Avg Ride Length - Note: DATE_TRUNC is how you round intervals in PostGreSQL
+    MIN(ended_at - started_at) AS min_ride_length,                                              -- Min Ride Length
+    MAX(ended_at - started_at) AS max_ride_length,                                              -- Max Ride Length
+    MODE() WITHIN GROUP (ORDER BY ended_at - started_at) AS mode_ride_length,                   -- Mode Ride Length
+    percentile_cont(0.5) WITHIN GROUP (ORDER BY ended_at - started_at) AS median_ride_length    -- Median Ride Length - Note:  No median function in PostGreSQL
+FROM
+    rides
+GROUP BY
+    member_casual                                          -- separates by members vs casual
+ORDER BY
+	DATE_TRUNC('second', AVG(ended_at - started_at)) DESC;  -- Orders by longest Average Ride to least longest Average Ride per membership type
+~~~
+___
+
+Query for Question #1 (Bike Type Comparisons:  Docked vs Classic vs Electric)
+~~~ SQL
+-- Average, Max, Mode, & Median ride time by bike type
+-- Note: DATE_TRUNC is how you round intervals in PostGreSQL
+-- Note:  No median function in PostGreSQL so provided replacement below
+
+SELECT
+	rideable_type,
+	DATE_TRUNC('second', AVG(ended_at - started_at)) AS avg_ride_length,                          -- Avg Ride Length - Note: DATE_TRUNC is how you round intervals in PostGreSQL
+	MIN(ended_at - started_at) AS min_ride_length,                                                -- Min Ride Length
+	MAX(ended_at - started_at) AS max_ride_length,                                                -- Max Ride Length
+	MODE() WITHIN GROUP (ORDER BY ended_at - started_at) AS mode_ride_length,                     -- Mode Ride Length
+	percentile_cont(0.5) WITHIN GROUP (ORDER BY ended_at - started_at) AS median_ride_length      -- Median Ride Length - Note:  No median function in PostGreSQL
+FROM
+	rides
+GROUP BY
+	rideable_type                                            -- Separates by bike type
+ORDER BY
+	DATE_TRUNC('second', AVG(ended_at - started_at)) DESC;    -- Orders by longest Average Ride to least longest Average Ride per bike type
+  ~~~
+___
+
+Query for Question #2 (Creation of a month_by_month Temp Table)
+~~~ SQL
+--Number of Casual vs Members & Bike Type choice by month in chronological order.
+--Includes total rides
+--Includes total casual rides & total member riders
+--Includes total bike types used by member types
+--To create a VIEW --> CREATE VIEW month_by_month AS
+--To add to a VIEW --> CREATE OR REPLACE VIEW month_by_month AS
+--To change name of VIEW --> ALTER VIEW month_by_month RENAME TO month
+--To remove the VIEW --> DROP VIEW IF EXISTS month_by_month
+
+CREATE OR REPLACE VIEW month_by_month AS      -- Creates month_by_month temp table
+SELECT
+	date_part('YEAR',started_at) AS year,       -- Year
+	date_part('MONTH',started_at) AS month,	    -- Month
+	SUM(
+		CASE
+			WHEN member_casual = 'casual' THEN 1 ELSE 0         -- Casual Count by Month
+			END
+	) AS num_of_casual,
+	SUM(
+		CASE
+			WHEN rideable_type = 'docked_bike' AND
+			member_casual = 'casual' THEN 1 ELSE 0   -- Casual using Docked bikes per month
+			END
+	) AS num_of_casual_docked,
+	SUM(
+		CASE
+			WHEN rideable_type = 'classic_bike' AND   -- Casual using Classic bikes per month
+			member_casual = 'casual' THEN 1 ELSE 0
+			END
+	) AS num_of_casual_classic,
+	SUM(
+		CASE
+			WHEN rideable_type = 'electric_bike' AND  -- Casual using Electric bikes per month
+			member_casual = 'casual' THEN 1 ELSE 0
+			END
+	) AS num_of_electric_casual,
+	SUM(
+		CASE
+			WHEN member_casual = 'member' THEN 1 ELSE 0         -- Member Count by Month
+			END
+	) AS num_of_member,
+	SUM(
+		CASE
+			WHEN rideable_type = 'docked_bike' AND
+			member_casual = 'member' THEN 1 ELSE 0   -- Member using Docked bikes per month
+			END
+	) AS num_of_member_docked,
+	SUM(
+		CASE
+			WHEN rideable_type = 'classic_bike' AND
+			member_casual = 'member' THEN 1 ELSE 0   -- Member using Classic bikes per month
+			END
+	) AS num_of_member_classic,
+	SUM(
+		CASE
+			WHEN rideable_type = 'electric_bike' AND  -- Member using Electric bikes per month
+			member_casual = 'member' THEN 1 ELSE 0
+			END
+	) AS num_of_electric_member,
+	COUNT(member_casual) AS total_rides
+FROM
+	rides
+GROUP BY
+	date_part('YEAR',started_at),     -- Orders by year
+	date_part('MONTH',started_at);     -- Orders by month
+~~~
+___
+Tests that the month_by_month temporary table works (Gotta check!)
+~~~ SQL
+SELECT
+	*
+FROM
+	month_by_month;
+~~~
+___
+Query for Question #2 (Creation of a day_by_day Temp Table)
+~~~ SQL
+--Number of Casual vs Members by day_of_week
+--Includes totals
+--To create a VIEW --> CREATE VIEW day_by_day AS
+--To add to a VIEW --> CREATE OR REPLACE VIEW day_by_day AS
+--To change name of VIEW --> ALTER VIEW day_by_day RENAME TO day
+--To remove the VIEW --> DROP VIEW IF EXISTS day_by_day
+
+CREATE OR REPLACE VIEW day_by_day AS
+SELECT
+	day_of_week,
+	SUM(
+		CASE
+			WHEN member_casual = 'casual' THEN 1 ELSE 0         --Casual Count by Month
+			END
+	) AS num_of_casual,
+	SUM(
+		CASE
+			WHEN rideable_type = 'docked_bike' AND
+			member_casual = 'casual' THEN 1 ELSE 0   --Casual using Docked bikes per month
+			END
+	) AS num_of_casual_docked,
+	SUM(
+		CASE
+			WHEN rideable_type = 'classic_bike' AND   --Casual using Classic bikes per month
+			member_casual = 'casual' THEN 1 ELSE 0
+			END
+	) AS num_of_casual_classic,
+	SUM(
+		CASE
+			WHEN rideable_type = 'electric_bike' AND  --Casual using Electric bikes per month
+			member_casual = 'casual' THEN 1 ELSE 0
+			END
+	) AS num_of_electric_casual,
+	SUM(
+		CASE
+			WHEN member_casual = 'member' THEN 1 ELSE 0         --Member Count by Month
+			END
+	) AS num_of_member,
+	SUM(
+		CASE
+			WHEN rideable_type = 'docked_bike' AND
+			member_casual = 'member' THEN 1 ELSE 0   --Member using Docked bikes per month
+			END
+	) AS num_of_member_docked,
+	SUM(
+		CASE
+			WHEN rideable_type = 'classic_bike' AND
+			member_casual = 'member' THEN 1 ELSE 0   --Member using Classic bikes per month
+			END
+	) AS num_of_member_classic,
+	SUM(
+		CASE
+			WHEN rideable_type = 'electric_bike' AND  --Member using Electric bikes per month
+			member_casual = 'member' THEN 1 ELSE 0
+			END
+	) AS num_of_member_electric,
+	COUNT(member_casual) AS total_rides
+FROM
+	rides
+GROUP BY
+	day_of_week;
+~~~
+___
+Tests that the day_by_day temporary table works (Gotta check!)
+~~~ SQL
+SELECT
+  *
+FROM
+  day_by_day;
+~~~
+___
 ## Deliverable 5:
 #### Supporting visualizations and key findings
 
