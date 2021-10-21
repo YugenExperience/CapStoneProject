@@ -279,7 +279,7 @@ SELECT
 			WHEN rideable_type = 'electric_bike' AND  -- Casual using Electric bikes per month
 			member_casual = 'casual' THEN 1 ELSE 0
 			END
-	) AS num_of_electric_casual,
+	) AS num_of_casual_electric,
 	SUM(
 		CASE
 			WHEN member_casual = 'member' THEN 1 ELSE 0         -- Member Count by Month
@@ -302,7 +302,7 @@ SELECT
 			WHEN rideable_type = 'electric_bike' AND  -- Member using Electric bikes per month
 			member_casual = 'member' THEN 1 ELSE 0
 			END
-	) AS num_of_electric_member,
+	) AS num_of_member_electric,
 	COUNT(member_casual) AS total_rides
 FROM
 	rides
@@ -353,7 +353,7 @@ SELECT
 			WHEN rideable_type = 'electric_bike' AND  --Casual using Electric bikes per month
 			member_casual = 'casual' THEN 1 ELSE 0
 			END
-	) AS num_of_electric_casual,
+	) AS num_of_casual_electric,
 	SUM(
 		CASE
 			WHEN member_casual = 'member' THEN 1 ELSE 0         --Member Count by Month
@@ -391,6 +391,8 @@ SELECT
 FROM
   day_by_day;
 ~~~
+___
+
 ___
 ## Deliverable 5:
 #### Supporting visualizations and key findings
