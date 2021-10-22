@@ -392,7 +392,56 @@ FROM
   day_by_day;
 ~~~
 ___
+Query for Question #2 (What percent of members vs casual riders per month)
+~~~ SQL
+-- Percentage of Rides by Month according to membership status
+-- References the month_by_month temporary table
 
+SELECT
+	year,
+	month,
+	ROUND(((CAST(num_of_member AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS member_percent,
+	ROUND(((CAST(num_of_casual AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS casual_percent
+FROM
+	month_by_month;
+~~~
+___
+Query for Question #2 (What percent of members vs casual by bike type per month )
+~~~ SQL
+-- Percentage of Member Type & Bike Type by Month
+-- Requires creation of a month_by_month tempoarary table
+
+SELECT
+	year,
+	month,
+	ROUND(((CAST(num_of_casual_docked AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS c_docked,
+	ROUND(((CAST(num_of_casual_classic AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS c_classic,
+	ROUND(((CAST(num_of_casual_electric AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS c_electric,
+	ROUND(((CAST(num_of_member_docked AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS m_docked,
+	ROUND(((CAST(num_of_member_classic AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS m_classic,
+	ROUND(((CAST(num_of_member_electric AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS m_electric
+FROM
+	month_by_month;
+
+~~~
+___
+Question #2:  (What percent of member vs casual per day of week)
+~~~ SQL
+-- Percentage of Rides by Day of Week according to membership status
+-- References the day_by_day temporary table
+
+SELECT
+	day_of_week,
+	ROUND(((CAST(num_of_member AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS member_percent,
+	ROUND(((CAST(num_of_casual AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS casual_percent
+FROM
+	day_by_day;
+~~~
+___
+Question #2:  (What percent of member vs casual by bike type per day of week)
+~~~
+
+~~~
 ___
 ## Deliverable 5:
 #### Supporting visualizations and key findings
