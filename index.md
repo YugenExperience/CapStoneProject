@@ -439,8 +439,20 @@ FROM
 ~~~
 ___
 Question #2:  (What percent of member vs casual by bike type per day of week)
-~~~
+~~~ SQL
+-- Percentage of Rides by Day of Week according to both membership type & bike type
+-- Requires creation of a day_by_day tempoarary table
 
+SELECT
+	day_of_week,
+	ROUND(((CAST(num_of_casual_docked AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS c_docked,
+	ROUND(((CAST(num_of_casual_classic AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS c_classic,
+	ROUND(((CAST(num_of_casual_electric AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS c_electric,
+	ROUND(((CAST(num_of_member_docked AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS m_docked,
+	ROUND(((CAST(num_of_member_classic AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS m_classic,
+	ROUND(((CAST(num_of_member_electric AS NUMERIC)/CAST(total_rides AS NUMERIC))*100)) AS m_electric
+FROM
+	day_by_day;
 ~~~
 ___
 ## Deliverable 5:
